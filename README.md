@@ -1,1 +1,1 @@
-Implementation of some cellular automaton solutions
+Implementation of some cellular automaton problems
