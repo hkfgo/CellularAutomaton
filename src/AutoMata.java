@@ -23,7 +23,6 @@ public class AutoMata {
 	void setState(String state){
 		initialState=""+state;
 		System.out.println("State number 1: "+ initialState);
-		states.add(initialState);
 	}
 	
 	void setRule(String... ruleStrings ){
@@ -45,6 +44,7 @@ public class AutoMata {
 			System.out.println(states.get(states.indexOf(state)));
 			cycleLength=stateCount-states.indexOf(state)-2;
 			System.out.println("Cycle length: "+ String.valueOf(cycleLength));
+			System.out.println("All states: "+ states.toString());
 			return state;
 			
 		}
