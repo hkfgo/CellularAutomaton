@@ -53,7 +53,8 @@ public class SolutionsMain {
 		am.setState("0123312301");
 		am.upDate(am.initialState, 1000);
 		**/
-		System.out.println(am.cycleTest().toString());
+		//System.out.println(am.cycleTest().toString());
+		am.setRule(am.generateRule());
 	}
 	
 	

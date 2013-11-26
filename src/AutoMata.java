@@ -110,17 +110,18 @@ public class AutoMata {
 	}
 	
 	public String[] generateRule(){
-		ArrayList<String> rules=new ArrayList<String>();
+		ArrayList<String> randomRules=new ArrayList<String>();
 		Random rn=new Random();
 		String[] currentCellState={"0","1","2","3"};
 		String[] neighborCellState={"0","1","2","3"};
 		for(String state:currentCellState){
 			for(String nState:neighborCellState){
-				rules.add(state+nState+"->"+Integer.toString(rn.nextInt(4)));
+				randomRules.add(state+nState+"->"+Integer.toString(rn.nextInt(4)));
 			}
 		}
-		return (String[]) rules.toArray();
-		
+		System.out.println(randomRules.toString());
+		String[] rulez=(String[]) randomRules.toArray(new String[randomRules.size()]);
+		return rulez;
 	}
 
 }
