@@ -48,10 +48,12 @@ public class SolutionsMain {
 		am.setState("0010101010");
 		am.upDate(am.initialState, 1000);
 		**/
-		//6(2)
+		/**6(2)
 		am.setRule("00->2","01->1","02->2","11->1","12->3","13->1","20->2","22->1","23->3","31->1","32->3","33->2");
 		am.setState("0123312301");
 		am.upDate(am.initialState, 1000);
+		**/
+		System.out.println(am.cycleTest().toString());
 	}
 	
 	

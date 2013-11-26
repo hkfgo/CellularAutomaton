@@ -2,6 +2,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Hashtable;
 import java.util.List;
+import java.util.Random;
 
 //Interface for automatonss
 public class AutoMata {
@@ -9,7 +10,7 @@ public class AutoMata {
 	int cycleLength;
 	int initialStateCount;
 	static Hashtable<String, String> rules;
-	Hashtable<Integer,Integer> cycleAndStates;
+	Hashtable<Integer,Integer> cycleAndStates=new Hashtable<Integer,Integer>();
 	boolean testCycle; //whether to test cycles
 	List<String> states;
 	String initialState;
@@ -17,7 +18,6 @@ public class AutoMata {
 		rules=new Hashtable<String,String>();
 		states= new ArrayList<String>();
 		testCycle=cycle;
-		cycleAndStates=new Hashtable<Integer,Integer>();
 	}
 	
 	void setState(String state){
@@ -45,6 +45,12 @@ public class AutoMata {
 			cycleLength=stateCount-states.indexOf(state)-2;
 			System.out.println("Cycle length: "+ String.valueOf(cycleLength));
 			System.out.println("All states: "+ states.toString());
+			if(cycleAndStates.containsKey(cycleLength)){
+				cycleAndStates.put(cycleLength, cycleAndStates.get(cycleLength)+1);
+			}
+			else{
+				cycleAndStates.put(cycleLength, 1);
+			}
 			return state;
 			
 		}
@@ -84,17 +90,37 @@ public class AutoMata {
 	}
 	
 	
-	public Hashtable cycleTest(){
+	public Hashtable<Integer,Integer> cycleTest(){
+		//For an alphabet of 0,1,2,3 and length 4, there's a total of 
 		for(int s=0;s<256;s++){
-			AutoMata Am= new AutoMata(true);
+			AutoMata am= new AutoMata(true);
+			am.setRule("00->2","01->1","02->2","11->1","12->3","13->1","20->2","22->1","23->3","31->1","32->3","33->2");
+			//Takes the base 10 number and convert it to base 4
+			String state=Integer.toString(s,4);
+			System.out.println("Initial state: "+ state);
+			am.upDate(state, 1000);
 		}
 		return cycleAndStates;
 	}
 	
 	
 	
-	public Hashtable randomCycleTest(){
+	public Hashtable<Integer,Integer> randomCycleTest(){
 		return cycleAndStates;
+	}
+	
+	public String[] generateRule(){
+		ArrayList<String> rules=new ArrayList<String>();
+		Random rn=new Random();
+		String[] currentCellState={"0","1","2","3"};
+		String[] neighborCellState={"0","1","2","3"};
+		for(String state:currentCellState){
+			for(String nState:neighborCellState){
+				rules.add(state+nState+"->"+Integer.toString(rn.nextInt(4)));
+			}
+		}
+		return (String[]) rules.toArray();
+		
 	}
 
 }
