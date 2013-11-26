@@ -10,7 +10,7 @@ public class AutoMata {
 	int cycleLength;
 	int initialStateCount;
 	static Hashtable<String, String> rules;
-	Hashtable<Integer,Integer> cycleAndStates=new Hashtable<Integer,Integer>();
+	static Hashtable<Integer,Integer> cycleAndStates=new Hashtable<Integer,Integer>();
 	boolean testCycle; //whether to test cycles
 	List<String> states;
 	String initialState;
@@ -46,10 +46,10 @@ public class AutoMata {
 			System.out.println("Cycle length: "+ String.valueOf(cycleLength));
 			System.out.println("All states: "+ states.toString());
 			if(cycleAndStates.containsKey(cycleLength)){
-				cycleAndStates.put(cycleLength, cycleAndStates.get(cycleLength)+1);
+				AutoMata.cycleAndStates.put(cycleLength, cycleAndStates.get(cycleLength)+1);
 			}
 			else{
-				cycleAndStates.put(cycleLength, 1);
+				AutoMata.cycleAndStates.put(cycleLength, 1);
 			}
 			return state;
 			
@@ -91,7 +91,7 @@ public class AutoMata {
 	
 	
 	public Hashtable<Integer,Integer> cycleTest(){
-		//For an alphabet of 0,1,2,3 and length 4, there's a total of 
+		//For an alphabet of 0,1,2,3 and length 4, there's a total of 4^4=256 combinations
 		for(int s=0;s<256;s++){
 			AutoMata am= new AutoMata(true);
 			am.setRule("00->2","01->1","02->2","11->1","12->3","13->1","20->2","22->1","23->3","31->1","32->3","33->2");
@@ -100,7 +100,7 @@ public class AutoMata {
 			System.out.println("Initial state: "+ state);
 			am.upDate(state, 1000);
 		}
-		return cycleAndStates;
+		return AutoMata.cycleAndStates;
 	}
 	
 	
